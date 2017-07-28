@@ -5,7 +5,7 @@ export function timeout(milisegundos = 500) {
         let timer = 0;
         descriptor.value = function (...args: any[]) {
             clearInterval(timer);
-            setTimeout(() => { metodoOriginal.apply(this, args); }, milisegundos);
+            timer = setTimeout(() => { metodoOriginal.apply(this, args); }, milisegundos);
         }
 
         return descriptor;

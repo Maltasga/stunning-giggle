@@ -1,6 +1,7 @@
 import { NegociacoesView, MensagemView } from "../views/index";
 import { Negociacao, Negociacoes, NegociacaoParcial } from "../models/index";
 import { medirPerformance, domInject, timeout } from "../helpers/index";
+import { NegociacaoService } from "../services/index";
 
 export class NegociacaoController {
     @domInject("#data")
@@ -13,6 +14,7 @@ export class NegociacaoController {
     private _negociacoes = new Negociacoes();
     private _negociacoesView = new NegociacoesView("#negociacoesView");
     private _mensagemView = new MensagemView("#mensagemView");
+    private _negociacaoService = new NegociacaoService();
 
     constructor() {
         this._negociacoesView.update(this._negociacoes);
@@ -50,17 +52,11 @@ export class NegociacaoController {
             }
         }
 
-        fetch("http://localhost:8080/dados")
-            .then(r => r.json())
-            .then((dados: NegociacaoParcial[]) => {
-                dados
-                    .map(d => new Negociacao(new Date(), d.vezes, d.montante))
-                    .forEach(n => this._negociacoes.adiciona(n))
-
+        this._negociacaoService.obterNegociacoes(isOk)
+            .then(negociacoes => {
+                negociacoes.forEach(n => this._negociacoes.adiciona(n));
                 this._negociacoesView.update(this._negociacoes);
-            })
-            .catch(e => console.log(e));
-
+            });
         this._mensagemView.update("Importação realizada com sucesso!");
     }
 

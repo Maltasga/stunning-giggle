@@ -13,7 +13,7 @@ System.register([], function (exports_1, context_1) {
                     args[_i] = arguments[_i];
                 }
                 clearInterval(timer);
-                setTimeout(function () { metodoOriginal.apply(_this, args); }, milisegundos);
+                timer = setTimeout(function () { metodoOriginal.apply(_this, args); }, milisegundos);
             };
             return descriptor;
         };
