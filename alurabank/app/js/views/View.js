@@ -6,7 +6,7 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             View = (function () {
-                function View(seletor) {
+                function View(seletor, parametroOpcional) {
                     this._container = $(seletor);
                 }
                 View.prototype.update = function (model) {

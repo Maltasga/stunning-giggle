@@ -1,28 +1,22 @@
-System.register(["../views/NegociacoesView", "../views/MensagemView", "../models/Negociacoes", "../models/Negociacao"], function (exports_1, context_1) {
+System.register(["../views/index", "../models/index"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var NegociacoesView_1, MensagemView_1, Negociacoes_1, Negociacao_1, NegociacaoController;
+    var index_1, index_2, NegociacaoController, DiaDaSemana;
     return {
         setters: [
-            function (NegociacoesView_1_1) {
-                NegociacoesView_1 = NegociacoesView_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             },
-            function (MensagemView_1_1) {
-                MensagemView_1 = MensagemView_1_1;
-            },
-            function (Negociacoes_1_1) {
-                Negociacoes_1 = Negociacoes_1_1;
-            },
-            function (Negociacao_1_1) {
-                Negociacao_1 = Negociacao_1_1;
+            function (index_2_1) {
+                index_2 = index_2_1;
             }
         ],
         execute: function () {
             NegociacaoController = (function () {
                 function NegociacaoController() {
-                    this._negociacoes = new Negociacoes_1.Negociacoes();
-                    this._negociacoesView = new NegociacoesView_1.NegociacoesView("#negociacoesView");
-                    this._mensagemView = new MensagemView_1.MensagemView("#mensagemView");
+                    this._negociacoes = new index_2.Negociacoes();
+                    this._negociacoesView = new index_1.NegociacoesView("#negociacoesView");
+                    this._mensagemView = new index_1.MensagemView("#mensagemView");
                     this._inputData = $("#data");
                     this._inputQuantidade = $("#quantidade");
                     this._inputValor = $("#valor");
@@ -30,14 +24,31 @@ System.register(["../views/NegociacoesView", "../views/MensagemView", "../models
                 }
                 NegociacaoController.prototype.adiciona = function (event) {
                     event.preventDefault();
-                    var negociacao = new Negociacao_1.Negociacao(new Date(this._inputData.val().replace(/-/g, ",")), parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
+                    var data = new Date(this._inputData.val().replace(/-/g, ","));
+                    if (!this._ehDiaUtil(data)) {
+                        this._mensagemView.update('Somente negociações em dias úteis, por favor!');
+                        return;
+                    }
+                    var negociacao = new index_2.Negociacao(data, parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
                     this._negociacoes.adiciona(negociacao);
                     this._negociacoesView.update(this._negociacoes);
                     this._mensagemView.update("Negociação adicionada com sucesso!");
                 };
+                NegociacaoController.prototype._ehDiaUtil = function (date) {
+                    return date.getDay() != DiaDaSemana.Sabado && date.getDay() != DiaDaSemana.Domingo;
+                };
                 return NegociacaoController;
             }());
             exports_1("NegociacaoController", NegociacaoController);
+            (function (DiaDaSemana) {
+                DiaDaSemana[DiaDaSemana["Domingo"] = 0] = "Domingo";
+                DiaDaSemana[DiaDaSemana["Segunda"] = 1] = "Segunda";
+                DiaDaSemana[DiaDaSemana["Terca"] = 2] = "Terca";
+                DiaDaSemana[DiaDaSemana["Quarta"] = 3] = "Quarta";
+                DiaDaSemana[DiaDaSemana["Quinta"] = 4] = "Quinta";
+                DiaDaSemana[DiaDaSemana["Sexta"] = 5] = "Sexta";
+                DiaDaSemana[DiaDaSemana["Sabado"] = 6] = "Sabado";
+            })(DiaDaSemana || (DiaDaSemana = {}));
         }
     };
 });
