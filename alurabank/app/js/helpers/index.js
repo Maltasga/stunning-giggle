@@ -1,4 +1,4 @@
-System.register(["./decorators/medidorPerformance", "./decorators/domInject", "./decorators/timeout"], function (exports_1, context_1) {
+System.register(["./decorators/medidorPerformance", "./decorators/domInject", "./decorators/timeout", "./utils"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -18,6 +18,9 @@ System.register(["./decorators/medidorPerformance", "./decorators/domInject", ".
             },
             function (timeout_1_1) {
                 exportStar_1(timeout_1_1);
+            },
+            function (utils_1_1) {
+                exportStar_1(utils_1_1);
             }
         ],
         execute: function () {

@@ -46,7 +46,7 @@ export class NegociacaoController {
     importar() {
         function isOk(response: Response) {
             if (response.ok) {
-                return true;
+                return response;
             } else {
                 throw new Error(response.statusText);
             }

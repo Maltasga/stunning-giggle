@@ -48,7 +48,7 @@ System.register(["../views/index", "../models/index", "../helpers/index", "../se
                     var _this = this;
                     function isOk(response) {
                         if (response.ok) {
-                            return true;
+                            return response;
                         }
                         else {
                             throw new Error(response.statusText);
