@@ -18,6 +18,15 @@ System.register([], function (exports_1, context_1) {
                     enumerable: true,
                     configurable: true
                 });
+                Negociacao.prototype.paraTexto = function () {
+                    console.log("Impressão");
+                    console.log("Data: " + this.data + "\n            Quantidade: " + this.quantidade + "\n            Valor: " + this.valor + "\n            Volume: " + this.volume);
+                };
+                Negociacao.prototype.ehIgual = function (objeto) {
+                    return this.data.getDate() == objeto.data.getDate()
+                        && this.data.getMonth() == objeto.data.getMonth()
+                        && this.data.getFullYear() == objeto.data.getFullYear();
+                };
                 return Negociacao;
             }());
             exports_1("Negociacao", Negociacao);

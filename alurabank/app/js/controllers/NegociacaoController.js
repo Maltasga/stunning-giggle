@@ -43,6 +43,7 @@ System.register(["../views/index", "../models/index", "../helpers/index", "../se
                     this._negociacoes.adiciona(negociacao);
                     this._negociacoesView.update(this._negociacoes);
                     this._mensagemView.update("Negociação adicionada com sucesso!");
+                    index_3.imprime(negociacao, this._negociacoes);
                 };
                 NegociacaoController.prototype.importar = function () {
                     var _this = this;

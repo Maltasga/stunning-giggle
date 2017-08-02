@@ -5,10 +5,8 @@ System.register([], function (exports_1, context_1) {
         return function (target, key) {
             var elemento;
             var getter = function () {
-                if (!elemento) {
-                    console.log("buscando  " + seletor + " para injetar em " + key);
+                if (!elemento)
                     elemento = $(seletor);
-                }
                 return elemento;
             };
             Object.defineProperty(target, key, {

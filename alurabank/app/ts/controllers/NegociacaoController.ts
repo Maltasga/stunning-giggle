@@ -1,7 +1,8 @@
 import { NegociacoesView, MensagemView } from "../views/index";
 import { Negociacao, Negociacoes, NegociacaoParcial } from "../models/index";
-import { medirPerformance, domInject, timeout } from "../helpers/index";
+import { medirPerformance, domInject, timeout, imprime } from "../helpers/index";
 import { NegociacaoService } from "../services/index";
+// import { imprime } from "../helpers/utils";
 
 export class NegociacaoController {
     @domInject("#data")
@@ -40,6 +41,8 @@ export class NegociacaoController {
         this._negociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update("Negociação adicionada com sucesso!");
+
+        imprime(negociacao, this._negociacoes);
     }
 
     @timeout(500)
