@@ -9,19 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var foto_component_1 = require("./foto.component");
-var foto_pipes_1 = require("./foto.pipes");
-var FotoModule = (function () {
-    function FotoModule() {
+var FiltroPorTitulo = (function () {
+    function FiltroPorTitulo() {
     }
-    FotoModule = __decorate([
-        core_1.NgModule({
-            declarations: [foto_component_1.FotoComponent, foto_pipes_1.FiltroPorTitulo],
-            exports: [foto_component_1.FotoComponent, foto_pipes_1.FiltroPorTitulo]
+    FiltroPorTitulo.prototype.transform = function (fotos, digitado) {
+        digitado = digitado.toLowerCase();
+        return fotos.filter(function (f) { return f.titulo.toLowerCase().includes(digitado); });
+    };
+    FiltroPorTitulo = __decorate([
+        core_1.Pipe({
+            name: "filtroPorTitulo"
         }), 
         __metadata('design:paramtypes', [])
-    ], FotoModule);
-    return FotoModule;
+    ], FiltroPorTitulo);
+    return FiltroPorTitulo;
 }());
-exports.FotoModule = FotoModule;
-//# sourceMappingURL=foto.module.js.map
+exports.FiltroPorTitulo = FiltroPorTitulo;
+//# sourceMappingURL=foto.pipes.js.map
