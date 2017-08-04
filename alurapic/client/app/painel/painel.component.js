@@ -12,6 +12,12 @@ var core_1 = require("@angular/core");
 var PainelComponent = (function () {
     function PainelComponent() {
     }
+    PainelComponent.prototype.ngOnInit = function () {
+        this.titulo =
+            this.titulo.length > 10
+                ? this.titulo.substr(0, 10) + "..."
+                : this.titulo;
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
