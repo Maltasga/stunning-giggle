@@ -14,10 +14,26 @@ var ListagemComponent = (function () {
     function ListagemComponent(service) {
         var _this = this;
         this.fotos = [];
-        service.lista().subscribe(function (response) {
+        this.mensagem = "";
+        this.service = service;
+        this.service.lista().subscribe(function (response) {
             _this.fotos = response;
         }, function (erro) { return console.error(erro.message); });
     }
+    ListagemComponent.prototype.remover = function (foto) {
+        var _this = this;
+        this.service.remover(foto)
+            .subscribe(function () {
+            var novasFotos = _this.fotos.slice(0);
+            var indice = novasFotos.indexOf(foto);
+            novasFotos.splice(indice, 1);
+            _this.fotos = novasFotos;
+            _this.mensagem = "Foto removida com sucesso!";
+        }, function (erro) {
+            console.error(erro);
+            _this.mensagem = "Não foi possível remover a foto.";
+        });
+    };
     ListagemComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

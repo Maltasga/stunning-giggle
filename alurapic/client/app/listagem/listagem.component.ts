@@ -9,11 +9,28 @@ import { FotoComponent } from "../foto/foto.component";
 export class ListagemComponent {
 
     fotos: FotoComponent[] = [];
+    service: FotoService;
+    mensagem: string = "";
 
     constructor(service: FotoService) {
+        this.service = service;
 
-        service.lista().subscribe((response) => {
+        this.service.lista().subscribe((response) => {
             this.fotos = response
         }, erro => console.error(erro.message));
+    }
+
+    remover(foto) {
+        this.service.remover(foto)
+            .subscribe(() => {
+                let novasFotos = this.fotos.slice(0);
+                let indice = novasFotos.indexOf(foto);
+                novasFotos.splice(indice, 1);
+                this.fotos = novasFotos;
+                this.mensagem = "Foto removida com sucesso!";
+            }, erro => {
+                console.error(erro)
+                this.mensagem = "Não foi possível remover a foto.";
+            });
     }
 }

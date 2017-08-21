@@ -24,6 +24,9 @@ var FotoService = (function () {
         return this.http.get(this.url)
             .map(function (response) { return response.json(); });
     };
+    FotoService.prototype.remover = function (foto) {
+        return this.http.delete(this.url + ("/" + foto._id));
+    };
     FotoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
