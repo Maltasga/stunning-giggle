@@ -25,7 +25,11 @@ var FotoService = (function () {
             .map(function (response) { return response.json(); });
     };
     FotoService.prototype.remover = function (foto) {
-        return this.http.delete(this.url + ("/" + foto._id));
+        return this.http.delete(this.url + "/" + foto._id);
+    };
+    FotoService.prototype.buscar = function (id) {
+        return this.http.get(this.url + "/" + id)
+            .map(function (res) { return res.json(); });
     };
     FotoService = __decorate([
         core_1.Injectable(), 

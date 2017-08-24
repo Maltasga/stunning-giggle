@@ -27,6 +27,11 @@ export class FotoService {
     }
 
     remover(foto: FotoComponent): Observable<Response> {
-        return this.http.delete(this.url + `/${foto._id}`);
+        return this.http.delete(`${this.url}/${foto._id}`);
+    }
+
+    buscar(id): Observable<FotoComponent> {
+        return this.http.get(`${this.url}/${id}`)
+            .map(res => res.json());
     }
 }
