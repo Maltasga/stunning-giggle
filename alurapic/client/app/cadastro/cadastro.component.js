@@ -14,17 +14,21 @@ var forms_1 = require("@angular/forms");
 var foto_service_1 = require("../foto/foto.service");
 var router_1 = require("@angular/router");
 var CadastroComponent = (function () {
-    function CadastroComponent(service, fb, route) {
+    function CadastroComponent(service, fb, route, router) {
         var _this = this;
         this.foto = new foto_component_1.FotoComponent();
+        this.mensagem = "";
         this.service = service;
         this.route = route;
+        this.router = router;
         this.route.params.subscribe(function (p) {
             var id = p["id"];
-            _this.service.buscar(id)
-                .subscribe(function (res) {
-                _this.foto = res;
-            });
+            if (id) {
+                _this.service.buscar(id)
+                    .subscribe(function (res) {
+                    _this.foto = res;
+                });
+            }
         });
         this.meuForm = fb.group({
             titulo: ["", forms_1.Validators.required],
@@ -36,8 +40,11 @@ var CadastroComponent = (function () {
         var _this = this;
         event.preventDefault();
         this.service.cadastra(this.foto)
-            .subscribe(function () {
+            .subscribe(function (response) {
+            _this.mensagem = response.mensagem;
             _this.foto = new foto_component_1.FotoComponent();
+            if (!response.inclusao)
+                _this.router.navigate(['']);
         }, function (erro) { return console.error(erro.message); });
     };
     CadastroComponent = __decorate([
@@ -46,7 +53,7 @@ var CadastroComponent = (function () {
             selector: "cadastro",
             templateUrl: "./cadastro.component.html"
         }), 
-        __metadata('design:paramtypes', [foto_service_1.FotoService, forms_1.FormBuilder, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [foto_service_1.FotoService, forms_1.FormBuilder, router_1.ActivatedRoute, router_1.Router])
     ], CadastroComponent);
     return CadastroComponent;
 }());
